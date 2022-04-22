@@ -1,0 +1,26 @@
+Curls
+
+
+
+ curl http://localhost:8080/api/jsonws/ohqiwtsfhl.h7g5entry/find-by-h7-g5-folder-id \
+  -d h7g5FolderId="4" \
+  -u test@liferay.com:test
+
+
+   curl http://localhost:8080/api/jsonws/ohqiwtsfhl.h7g5entry/fetch-by-h_-d_-n  \
+  -d h7g5FolderId="4" \
+ 	-d Description="TESTE TESTE" \
+ 	-d Name="TESTENAME" \
+	 -u test@liferay.com:test
+
+
+
+curl http://localhost:8080/api/jsonws/ohqiwtsfhl.h7g5entry/find-by-key \
+  -d Key="4" \
+  -u test@liferay.com:test
+
+
+  curl http://localhost:8080/api/jsonws/ohqiwtsfhl.h7g5entry/find-by-name \
+  -d Name="TESTE" \
+  -u test@liferay.com:test
+
