@@ -45,12 +45,12 @@ public class H7G5EntryLocalServiceImpl extends H7G5EntryLocalServiceBaseImpl {
 
 	@Override
 	public java.util.List<H7G5Entry> findByName(String name){
-		return h7g5EntryPersistence.findByName(name);
+		return h7g5EntryFinder.findByName(name);
 	}
 
 	@Override
 	public H7G5Entry fetchByH_D_N(long h7g5FolderId, String description, String name){
-		return h7g5EntryPersistence.fetchByH_D_N(h7g5FolderId, description, name);
+		return h7g5EntryFinder.fetchByH_D_N(h7g5FolderId, description, name);
 	}
 
 

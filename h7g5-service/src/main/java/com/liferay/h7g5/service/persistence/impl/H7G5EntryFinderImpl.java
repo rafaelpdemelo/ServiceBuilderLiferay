@@ -62,7 +62,64 @@ public class H7G5EntryFinderImpl extends H7G5EntryFinderBaseImpl {
         return null;
     }
 
-    
+    public java.util.List<H7G5Entry> findByName(String name){
+        Session session = null;
+        try {
+            session = openSession();
+
+            ClassLoader classLoader = getClass().getClassLoader();
+
+            DynamicQuery h7g5EntryQuery = DynamicQueryFactoryUtil.forClass(H7G5Entry.class, classLoader)
+                    .add(RestrictionsFactoryUtil.eq("name", name));
+
+
+            return H7G5EntryLocalServiceUtil.dynamicQuery(h7g5EntryQuery);
+
+        } catch (Exception e) {
+            try {
+                throw new SystemException(e);
+            } catch (SystemException se) {
+                se.printStackTrace();
+            }
+        } finally {
+            closeSession(session);
+        }
+        return null;
+    }
+
+    public H7G5Entry fetchByH_D_N(long h7g5FolderId, String description, String name){
+        Session session = null;
+        try {
+            session = openSession();
+
+            ClassLoader classLoader = getClass().getClassLoader();
+
+            DynamicQuery h7g5EntryQuery = DynamicQueryFactoryUtil.forClass(H7G5Entry.class, classLoader)
+                  .add(RestrictionsFactoryUtil.eq("h7g5FolderId", h7g5FolderId))
+                  .setProjection(ProjectionFactoryUtil.property("h7g5EntryId"));
+
+                  DynamicQuery h7g5EntryQueryByDesc = DynamicQueryFactoryUtil.forClass(H7G5Entry.class, classLoader)
+                  .add(RestrictionsFactoryUtil.eq("description", description))
+                  .add(PropertyFactoryUtil.forName("h7g5EntryId").in(h7g5EntryQuery))
+                  .setProjection(ProjectionFactoryUtil.property("h7g5EntryId"));
+
+                  DynamicQuery h7g5EntryQueryByName = DynamicQueryFactoryUtil.forClass(H7G5Entry.class, classLoader)
+                  .add(RestrictionsFactoryUtil.eq("name", name))
+                  .add(PropertyFactoryUtil.forName("h7g5EntryId").in(h7g5EntryQueryByDesc));
+
+                  return (H7G5Entry) H7G5EntryLocalServiceUtil.dynamicQuery(h7g5EntryQueryByName).get(0);
+
+        } catch (Exception e) {
+            try {
+                throw new SystemException(e);
+            } catch (SystemException se) {
+                se.printStackTrace();
+            }
+        } finally {
+            closeSession(session);
+        }
+        return null;
+    }
 
 
 }
